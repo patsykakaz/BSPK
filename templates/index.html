@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load staticfiles i18n %}
+
+{% block meta_title %}{% trans "Home" %}{% endblock %}
+{% block title %}{% trans "Home" %}{% endblock %}
+
+{% block main %}
+    <div id='first' class='level' style='background: url({{ MEDIA_URL }}{{ homePicture.image }}) no-repeat center center fixed; background-size: cover;'>
+        <div id='baseline'>{{ baseline }}</div>
+        <img src='{% static "img/logo.png" %}' alt='logo Bespoke' />
+    </div>
+    <div id='food' class='level'>
+        <div id='layer-navbar'>
+        {% include 'navbar.html' %}
+        </div>
+        <div class='navbar-fake-layer'></div>
+        <div class='container'>
+            <div class='col-md-8 col-md-offset-2'>
+                {% for element in foodCat %}
+                    <h3 class='category'>{{ element.title|upper }}</h3>
+                    <div class='category-wing'></div>
+                    <div class='category-wing last'></div>
+                    {% for foodItem in element.food %}
+                        <div class='item'>{{ foodItem.name }} - {{ foodItem.price}}</div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div id='drinks' class='level'>
+        <div class='navbar-fake-layer'></div>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-md-8 col-md-offset-2'>
+                    <div class='row'>
+                    {% for element in drinkCat %}
+                        {% if element.half_display_size %}
+                        <div class='col-md-6'>
+                        {% else %}
+                        <div class='col-md-12'>
+                        {% endif %}
+                            <h3 class='category'>{{ element.title|upper }}</h3>
+                            <div class='category-wing'></div>
+                            <div class='category-wing last'></div>
+                            {% for drinkItem in element.drinks %}
+                                <div class='item'>{{ drinkItem.name }} - {{ drinkItem.price}}</div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
